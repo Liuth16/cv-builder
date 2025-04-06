@@ -1,0 +1,33 @@
+.cv-preview {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.general-info {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.general-info h2 {
+  margin-bottom: 0.5rem;
+}
+
+.education-section,
+.experience-section {
+  margin-bottom: 2rem;
+}
+
+.education-item,
+.experience-item {
+  margin-bottom: 1.5rem;
+}
+
+.education-item h4,
+.experience-item h4 {
+  margin-bottom: 0.25rem;
+}
+
+.experience-item p {
+  margin: 0.25rem 0;
+}
