@@ -1,8 +1,8 @@
 import { useState } from "react";
-import UserInputs from "./components/UserInputs";
 import InputField from "./components/InputField";
 import mockData from "./components/mockData";
 import CVPreview from "./components/CVPreview";
+import CVForm from "./components/CVForm";
 import "./App.css";
 
 function App() {
@@ -19,21 +19,37 @@ function App() {
     }));
   }
 
+  function handleEducationChange(e, index) {
+    const { name, value } = e.target;
+    setCvData((prev) => ({
+      ...prev,
+      education: prev.education.map((edu, i) =>
+        i === index ? { ...edu, [name]: value } : edu
+      ),
+    }));
+  }
+
+  function handleExperienceChange(e, index) {
+    const { name, value } = e.target;
+    setCvData((prev) => ({
+      ...prev,
+      experience: prev.experience.map((exp, i) =>
+        i === index ? { ...exp, [name]: value } : exp
+      ),
+    }));
+  }
+
   return (
     <>
       <div>
-        <h1></h1>
+        <CVForm
+          data={cvData}
+          onGeneralChange={handleGeneralChange}
+          onEducationChange={handleEducationChange}
+          onExperienceChange={handleExperienceChange}
+        />
+        <CVPreview data={cvData} />
       </div>
-      <InputField
-        data={cvData}
-        label="First name"
-        id="firstName"
-        name="firstName"
-        type="text"
-        value={cvData.generalInfo.firstName}
-        onChange={(e) => handleGeneralChange(e)}
-      />
-      <CVPreview data={cvData} />
     </>
   );
 }
