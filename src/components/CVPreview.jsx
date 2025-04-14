@@ -1,8 +1,9 @@
+import { forwardRef } from "react";
 import "../styles/CVPreview.css";
 
-function CVPreview({ data }) {
+const CVPreview = forwardRef(({ data }, ref) => {
   return (
-    <div className="cv-preview">
+    <div className="cv-preview" ref={ref}>
       <div className="general-info">
         <h2>
           {data.generalInfo.firstName} {data.generalInfo.lastName}
@@ -38,6 +39,6 @@ function CVPreview({ data }) {
       </div>
     </div>
   );
-}
+});
 
 export default CVPreview;

@@ -3,10 +3,36 @@ import InputField from "./components/InputField";
 import mockData from "./components/mockData";
 import CVPreview from "./components/CVPreview";
 import CVForm from "./components/CVForm";
+import Button from "./components/Button";
+import { useReactToPrint } from "react-to-print";
+import { useRef } from "react";
 import "./App.css";
 
 function App() {
   const [cvData, setCvData] = useState(mockData);
+  const [isEditing, setIsEditing] = useState(true);
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    contentRef: componentRef,
+  });
+
+  function handleAddEducation() {
+    setCvData((prev) => ({
+      ...prev,
+      education: [
+        ...prev.education,
+        {
+          schoolName: "",
+          titleOfStudy: "",
+          dateOfStudy: "",
+        },
+      ],
+    }));
+  }
+
+  function handleEdit() {
+    setIsEditing((prev) => !prev);
+  }
 
   function handleGeneralChange(e) {
     const { name, value } = e.target;
@@ -41,14 +67,25 @@ function App() {
 
   return (
     <>
-      <div>
-        <CVForm
-          data={cvData}
-          onGeneralChange={handleGeneralChange}
-          onEducationChange={handleEducationChange}
-          onExperienceChange={handleExperienceChange}
+      <div className="app-container">
+        <CVPreview data={cvData} ref={componentRef} />
+        {isEditing ? (
+          <CVForm
+            data={cvData}
+            onGeneralChange={handleGeneralChange}
+            onEducationChange={handleEducationChange}
+            onExperienceChange={handleExperienceChange}
+            disabled={!isEditing}
+            onAddEducation={handleAddEducation}
+          />
+        ) : null}
+        <Button
+          buttonClass={"edit"}
+          text={isEditing ? "Save" : "Edit"}
+          isEditing={isEditing}
+          onClick={handleEdit}
         />
-        <CVPreview data={cvData} />
+        <Button buttonClass={"edit"} text={"Print"} onClick={handlePrint} />
       </div>
     </>
   );

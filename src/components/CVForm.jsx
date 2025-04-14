@@ -1,10 +1,13 @@
 import InputField from "./InputField";
+import "../styles/CVForm.css";
 
 function CVForm({
   data,
   onGeneralChange,
   onEducationChange,
   onExperienceChange,
+  onAddEducation,
+  disabled,
 }) {
   return (
     <div className="cv-form">
@@ -17,6 +20,7 @@ function CVForm({
           type="text"
           value={data.generalInfo.firstName}
           onChange={onGeneralChange}
+          disabled={disabled}
         />
         <InputField
           label="Last Name"
@@ -25,6 +29,7 @@ function CVForm({
           type="text"
           value={data.generalInfo.lastName}
           onChange={onGeneralChange}
+          disabled={disabled}
         />
         <InputField
           label="Email"
@@ -33,6 +38,7 @@ function CVForm({
           type="email"
           value={data.generalInfo.email}
           onChange={onGeneralChange}
+          disabled={disabled}
         />
         <InputField
           label="Phone"
@@ -41,11 +47,13 @@ function CVForm({
           type="tel"
           value={data.generalInfo.phone}
           onChange={onGeneralChange}
+          disabled={disabled}
         />
       </section>
 
       <section className="form-section">
         <h2>Education</h2>
+        <button onClick={onAddEducation}>Add education</button>
         {data.education.map((edu, index) => (
           <div key={index} className="education-form-group">
             <h3>Education #{index + 1}</h3>
@@ -56,6 +64,7 @@ function CVForm({
               type="text"
               value={edu.schoolName}
               onChange={(e) => onEducationChange(e, index)}
+              disabled={disabled}
             />
             <InputField
               label="Title of Study"
@@ -64,6 +73,7 @@ function CVForm({
               type="text"
               value={edu.titleOfStudy}
               onChange={(e) => onEducationChange(e, index)}
+              disabled={disabled}
             />
             <InputField
               label="Date of Study"
@@ -72,6 +82,7 @@ function CVForm({
               type="text"
               value={edu.dateOfStudy}
               onChange={(e) => onEducationChange(e, index)}
+              disabled={disabled}
             />
           </div>
         ))}
@@ -89,6 +100,7 @@ function CVForm({
               type="text"
               value={exp.companyName}
               onChange={(e) => onExperienceChange(e, index)}
+              disabled={disabled}
             />
             <InputField
               label={"Position Title"}
@@ -97,14 +109,16 @@ function CVForm({
               type="text"
               value={exp.positionTitle}
               onChange={(e) => onExperienceChange(e, index)}
+              disabled={disabled}
             />
             <InputField
               label={"Main Responsibilities"}
               id={`responsibilities-${index}`}
               name={`mainResponsibilities`}
-              type="text"
+              type="textarea"
               value={exp.mainResponsibilities}
               onChange={(e) => onExperienceChange(e, index)}
+              disabled={disabled}
             />
             <InputField
               label={"From"}
@@ -113,6 +127,7 @@ function CVForm({
               type="text"
               value={exp.dateFrom}
               onChange={(e) => onExperienceChange(e, index)}
+              disabled={disabled}
             />
             <InputField
               label={"Until"}
@@ -121,6 +136,7 @@ function CVForm({
               type="text"
               value={exp.dateUntil}
               onChange={(e) => onExperienceChange(e, index)}
+              disabled={disabled}
             />
           </div>
         ))}
