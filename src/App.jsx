@@ -1,5 +1,4 @@
 import { useState } from "react";
-import InputField from "./components/InputField";
 import mockData from "./components/mockData";
 import CVPreview from "./components/CVPreview";
 import CVForm from "./components/CVForm";
@@ -27,6 +26,36 @@ function App() {
           dateOfStudy: "",
         },
       ],
+    }));
+  }
+
+  function handleAddExperience() {
+    setCvData((prev) => ({
+      ...prev,
+      experience: [
+        ...prev.experience,
+        {
+          companyName: "",
+          positionTitle: "",
+          mainResponsibilities: "",
+          dateFrom: "",
+          dateUntil: "",
+        },
+      ],
+    }));
+  }
+
+  function handleRemoveEducation(index) {
+    setCvData((prev) => ({
+      ...prev,
+      education: prev.education.filter((_, i) => i !== index),
+    }));
+  }
+
+  function handleRemoveExperience(index) {
+    setCvData((prev) => ({
+      ...prev,
+      experience: prev.experience.filter((_, i) => i !== index),
     }));
   }
 
@@ -77,6 +106,9 @@ function App() {
             onExperienceChange={handleExperienceChange}
             disabled={!isEditing}
             onAddEducation={handleAddEducation}
+            onAddExperience={handleAddExperience}
+            onRemoveEducation={handleRemoveEducation}
+            onRemoveExperience={handleRemoveExperience}
           />
         ) : null}
         <Button
@@ -85,7 +117,12 @@ function App() {
           isEditing={isEditing}
           onClick={handleEdit}
         />
-        <Button buttonClass={"edit"} text={"Print"} onClick={handlePrint} />
+        <Button
+          buttonClass={"print"}
+          text={"Print"}
+          onClick={handlePrint}
+          disabled={isEditing}
+        />
       </div>
     </>
   );

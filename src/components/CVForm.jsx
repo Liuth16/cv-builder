@@ -7,6 +7,9 @@ function CVForm({
   onEducationChange,
   onExperienceChange,
   onAddEducation,
+  onAddExperience,
+  onRemoveEducation,
+  onRemoveExperience,
   disabled,
 }) {
   return (
@@ -53,10 +56,15 @@ function CVForm({
 
       <section className="form-section">
         <h2>Education</h2>
-        <button onClick={onAddEducation}>Add education</button>
         {data.education.map((edu, index) => (
           <div key={index} className="education-form-group">
             <h3>Education #{index + 1}</h3>
+            <button
+              onClick={() => onRemoveEducation(index)}
+              disabled={disabled || data.education.length <= 1}
+            >
+              Remove
+            </button>
             <InputField
               label="School Name"
               id={`school-${index}`}
@@ -86,13 +94,21 @@ function CVForm({
             />
           </div>
         ))}
+        <button onClick={onAddEducation}>Add education</button>
       </section>
 
       <section className="form-section">
         <h2>Professional Experience</h2>
+
         {data.experience.map((exp, index) => (
           <div key={index} className="experience-form-group">
             <h3>Experience #{index + 1}</h3>
+            <button
+              onClick={() => onRemoveExperience(index)}
+              disabled={disabled || data.education.length <= 1}
+            >
+              Remove
+            </button>
             <InputField
               label={"Company Name"}
               id={`company-${index}`}
@@ -140,6 +156,7 @@ function CVForm({
             />
           </div>
         ))}
+        <button onClick={onAddExperience}>Add experience</button>
       </section>
     </div>
   );
